@@ -32,7 +32,7 @@ mainTable = Table([
 
 # defining style format for the table
 mainTable.setStyle([
-    ('GRID', (0, 0), (-1, -1), 1, 'red'),
+    # ('GRID', (0, 0), (-1, -1), 1, 'red'),
     
     ('LEFTPADDING', (0, 0), (0, 2), 0),
     
