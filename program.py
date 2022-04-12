@@ -25,6 +25,10 @@ mainTable = Table([
 mainTable.setStyle([
     ('GRID', (0, 0), (-1, -1), 1, 'red'),
     
+    ('LEFTPADDING', (0, 0), (0, 2), 0),
+    
+    ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+    
 ])
 
 mainTable.wrapOn(pdf, 0, 0)
