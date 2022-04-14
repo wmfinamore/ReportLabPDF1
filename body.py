@@ -1,3 +1,4 @@
+from reportlab.lib import colors
 from reportlab.platypus import Table
 
 def genBodyTable(width, height):
@@ -27,8 +28,12 @@ def genBodyTable(width, height):
         widthList,
         heightList)
     
+    color = colors.HexColor('#003363')
+    
     res.setStyle([
         ('GRID', (0, 0), (-1, -1), 1, 'red'),
+        
+        ('LINEBELOW', (1,0), (1,1), 5, color)
     ])
     
     return res
