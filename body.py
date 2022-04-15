@@ -29,11 +29,25 @@ def genBodyTable(width, height):
         heightList)
     
     color = colors.HexColor('#003363')
+    leftPadding = 20
     
     res.setStyle([
         ('GRID', (0, 0), (-1, -1), 1, 'red'),
         
-        ('LINEBELOW', (1,0), (1,1), 5, color)
+        ('LINEBELOW', (1,0), (1,1), 1, color),
+        ('LINEBELOW', (1,3), (1,3), 1, color),
+        
+        ('LEFTPADDING', (1, 0), (1,3), leftPadding),
+        
+        ('FONTSIZE', (1, 0), (1, 0), 30),
+        ('BOTTOMPADDING', (1, 0), (1, 0), 30),
+        
+        ('BOTTOMPADDING', (1, 1), (1, 2), 0),
+        
+        ('BOTTOMPADDING', (1, 3), (1, 3), 40),
+        
+        ('BOTTOMPADDING', (1, 4), (1, 4), 0),
+        ('LEFTPADDING', (1, 4), (1, 4), 0),
     ])
     
     return res
