@@ -62,7 +62,38 @@ def _genPriceListTable(width, height):
     return 'PRICES'
 
 def _genDescriptionParasList():
-    return 'DESCRIPTION'
+    res = []
+    
+    para1Style = ParagraphStyle('para1d')
+    para1Style.fontSize = 10
+    para1Style.spaceAfter = 15
+    para1Style.textColor = colors.HexColor('#003363')
+    
+    para2Style = ParagraphStyle('para2d')
+    para2Style.fontSize = 10
+    
+    para1 = Paragraph('''
+    <b>
+    Thank you very much for using the services from us at Palms.
+    Here at Palms Hotel we have living rooms and well-equipped
+    meeting rooms of all sizes with a capacitu from 8 - 300 people,
+    so that we will be well prepared for most needs you may have.
+    </b>     
+    ''', para1Style)
+    para2 = Paragraph('''
+    <i>
+    Palms Hotel is also known for its cuisine and good service,
+    therefore you can feel confident that your needs and desires
+    will be ewll taken care of, whether you choose to user our
+    beautiful Restaurant Palms or other living rooms,
+    we guarantee a <u>good experience with us.</u>
+    </i>
+    ''', para2Style)
+    
+    res.append(para1)
+    res.append(para2)
+    
+    return res
 
 def _genAboutTable(width, height):
     widthList = [
