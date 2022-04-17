@@ -19,10 +19,13 @@ def genBodyTable(width, height):
         
     ]
     
+    leftPadding = 20
+    tablesWidth = widthList[1]-leftPadding # adjusting tables width
+    
     res = Table([
         ['', 'Offer', ''],
-        ['', _genContactsTable(widthList[1], heightList[1]), ''],
-        ['', _genPriceListTable(widthList[1], heightList[2]), ''],
+        ['', _genContactsTable(tablesWidth, heightList[1]), ''],
+        ['', _genPriceListTable(tablesWidth, heightList[2]), ''],
         ['', _genDescriptionParasList(), ''],
         ['', _genAboutTable(widthList[1], heightList[4]), ''],
     ],
@@ -30,10 +33,9 @@ def genBodyTable(width, height):
         heightList)
     
     color = colors.HexColor('#003363')
-    leftPadding = 20
     
     res.setStyle([
-        ('GRID', (0, 0), (-1, -1), 1, 'red'),
+        #('GRID', (0, 0), (-1, -1), 1, 'red'),
         
         ('LINEBELOW', (1,0), (1,1), 1, color),
         ('LINEBELOW', (1,3), (1,3), 1, color),
@@ -56,7 +58,59 @@ def genBodyTable(width, height):
 ## Functions for internal tables
 
 def _genContactsTable(width, height):
-    return 'CONTACTS'
+    widthList = [
+        width * 0.30,
+        width * 0.30,
+        width * 0.20,
+        width * 0.20,
+    ]
+    heightList = [
+        height * 0.25,
+        height * 0.25,
+        height * 0.25,
+        height * 0.25,
+    ]
+    
+    dataList = []
+    
+    # open file and create a lista with contact values
+    with open(r'resources\tabledata.txt', 'r') as file:
+        for line in file:
+            if line != '\n':
+                dataList.append(line.replace('/n', ''))
+    
+    # create matrix(list of string lists)
+    matrix = [
+        ['','','',''],
+        ['','','',''],
+        ['','','',''],
+        ['','','',''],
+    ]
+    
+    # include values of contacts in the matrix
+    idx = 0
+    for ridx, row in enumerate(matrix):
+        for cidx, col in enumerate(row):
+            matrix[ridx][cidx] = dataList[idx]
+            idx += 1
+            
+            if idx == len(dataList):
+                break
+        if idx == len(dataList):
+                break
+    
+    res = Table(matrix, widthList, heightList)
+    
+    res.setStyle([
+        #('GRID', (0, 0), (-1, -1), 1, 'red'),
+        
+        ('ALIGN', (3, 0), (3, -1), 'RIGHT'),
+        ('RIGHTPADDING', (3, 0), (3, -1), 20),
+        
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+    ])
+    
+    return res
 
 def _genPriceListTable(width, height):
     return 'PRICES'
