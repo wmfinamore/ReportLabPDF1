@@ -2,6 +2,8 @@ from reportlab.lib import colors
 from reportlab.platypus import Table, Image, Paragraph
 from reportlab.lib.styles import ParagraphStyle
 
+import csv
+
 def genBodyTable(width, height):
     
     widthList = [
@@ -113,7 +115,33 @@ def _genContactsTable(width, height):
     return res
 
 def _genPriceListTable(width, height):
-    return 'PRICES'
+    
+    titleStyle = ParagraphStyle('titleStyle')
+    titleStyle.fontSize = 20
+    titleStyle.fontName = 'Helvetica-Bold'
+    titleStyle.spaceAfter = 15
+    
+    titlePara = Paragraph('Details', titleStyle)
+    
+    pricesTable = _genPricesTable(width, height * 0.70)
+    
+    elementsList = [titlePara, pricesTable]
+    
+    
+    res = Table([
+        [elementsList],
+    ], width, height)
+    
+    res.setStyle([
+        #('GRID', (0, 0), (-1, -1), 1, 'red'),
+        
+        ('LEFTPADDING', (0, 0), (-1, -1), 0),
+        ('BOTTOMPADDING',(0, 0), (-1, -1), 0),
+        
+        
+    ])
+    
+    return res
 
 def _genDescriptionParasList():
     res = []
@@ -150,6 +178,7 @@ def _genDescriptionParasList():
     return res
 
 def _genAboutTable(width, height):
+    
     widthList = [
         width * 0.20,
         width * 0.80,
@@ -194,5 +223,61 @@ def _genAboutTable(width, height):
         ('VALIGN', (0, 0), (1, 0), 'MIDDLE'),
         
     ])
+    
+    return res
+
+def _genPricesTable(width, height):
+    matrix = []
+    
+    with open(r'resources\pricesTable.csv', 'r') as file:
+        matrix = list(csv.reader(file))
+        
+    if len(matrix) < 2 or len(matrix[0]) !=6 :
+        return Table(['no data'])
+    
+    widthList = [
+        width * 0.20,
+        width * 0.20,
+        width * 0.25,
+        width * 0.15,
+        width * 0.10,
+        width * 0.10,
+    ]
+    
+    rowCount = len(matrix)
+    
+    res = Table(matrix, widthList, height/rowCount )
+    
+    color = colors.toColor('rgba(0, 115, 153, 0.9)')
+    
+    res.setStyle([
+        #('GRID', (0, 0), (-1, -1), 1, 'red'),
+        ('INNERGRID', (0, 0), (-1, -1), 0.5, 'grey'),
+        
+        ('BACKGROUND', (0, 0), (-1, 0), color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), 'white'),
+        ('FONTSIZE', (0, 0), (-1, 0), 12),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        
+        ('ALIGN', (1, 0), (-1, 0), 'CENTER'),
+        
+        ('ALIGN', (1, 1), (2, -1), 'CENTER'),
+        
+        ('ALIGN', (5, 1), (5, -1), 'RIGHT'),
+        
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), ['antiquewhite', 'beige'])
+        
+    ])
+    
+    # for i in range(1, rowCount):
+    #     if i % 2 == 0 :
+    #         bc = colors.antiquewhite
+    #     else:
+    #         bc = colors.beige
+    #     res.setStyle([
+    #         ('BACKGROUND', (0, i), (-1, i), bc),
+    #     ])
     
     return res
