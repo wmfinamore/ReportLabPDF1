@@ -154,7 +154,7 @@ def _genDescriptionParasList():
     
     para2Style = ParagraphStyle('para2d')
     para2Style.fontSize = 10
-    para2Style.fontName = 'jetBrainsMonoItalic'
+    para2Style.fontName = 'jetBrainsMonoRegular'
     
     para1 = Paragraph('''
     Thank you very much for using the services from us at Palms.
@@ -163,11 +163,13 @@ def _genDescriptionParasList():
     so that we will be well prepared for most needs you may have.    
     ''', para1Style)
     para2 = Paragraph('''
-    <font name='jetBrainsMonoExtraBoldItalic'>Palms Hotel</font> is also known for its cuisine and good service,
+    <i>
+    <b>Palms Hotel</b> is also known for its cuisine and good service,
     therefore you can feel confident that your needs and desires
     will be ewll taken care of, whether you choose to user our
     beautiful Restaurant Palms or other living rooms,
     we guarantee a <u>good experience with us.</u>
+    </i>
     ''', para2Style)
     
     res.append(para1)

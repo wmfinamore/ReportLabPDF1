@@ -28,6 +28,14 @@ pdfmetrics.registerFont(
 pdfmetrics.registerFont(
     TTFont('jetBrainsMonoRegular', r'resources\newFont\JetBrainsMono-Regular.ttf')
 )
+
+pdfmetrics.registerFontFamily(
+    'jetBrainsMonoRegular',
+    normal = 'jetBrainsMonoRegular', # must be equal to font family name
+    italic = 'jetBrainsMonoItalic',
+    bold = 'jetBrainsMonoExtraBold',
+    boldItalic = 'jetBrainsMonoExtraBoldItalic',
+)
 ##########################################################
 
 #define canvas to draw the report
