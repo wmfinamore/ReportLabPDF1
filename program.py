@@ -9,8 +9,26 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 
 pdfmetrics.registerFont(
-    TTFont('arabe', 'resources\Lateef-Regular.ttf')
+    TTFont('arabe', r'resources\Lateef-Regular.ttf')
 )
+
+#register jetBrains Mono font family ####################
+pdfmetrics.registerFont(
+    TTFont('jetBrainsMonoExtraBold', r'resources\newFont\JetBrainsMono-ExtraBold.ttf')
+)
+
+pdfmetrics.registerFont(
+    TTFont('jetBrainsMonoExtraBoldItalic', r'resources\newFont\JetBrainsMono-ExtraBoldItalic.ttf')
+)
+
+pdfmetrics.registerFont(
+    TTFont('jetBrainsMonoItalic', r'resources\newFont\JetBrainsMono-Italic.ttf')
+)
+
+pdfmetrics.registerFont(
+    TTFont('jetBrainsMonoRegular', r'resources\newFont\JetBrainsMono-Regular.ttf')
+)
+##########################################################
 
 #define canvas to draw the report
 pdf = canvas.Canvas('report.pdf', pagesize = A4)

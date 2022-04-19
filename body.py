@@ -150,26 +150,24 @@ def _genDescriptionParasList():
     para1Style.fontSize = 10
     para1Style.spaceAfter = 15
     para1Style.textColor = colors.HexColor('#003363')
+    para1Style.fontName = 'jetBrainsMonoExtraBold'
     
     para2Style = ParagraphStyle('para2d')
     para2Style.fontSize = 10
+    para2Style.fontName = 'jetBrainsMonoItalic'
     
     para1 = Paragraph('''
-    <b>
     Thank you very much for using the services from us at Palms.
     Here at Palms Hotel we have living rooms and well-equipped
     meeting rooms of all sizes with a capacitu from 8 - 300 people,
-    so that we will be well prepared for most needs you may have.
-    </b>     
+    so that we will be well prepared for most needs you may have.    
     ''', para1Style)
     para2 = Paragraph('''
-    <i>
-    Palms Hotel is also known for its cuisine and good service,
+    <font name='jetBrainsMonoExtraBoldItalic'>Palms Hotel</font> is also known for its cuisine and good service,
     therefore you can feel confident that your needs and desires
     will be ewll taken care of, whether you choose to user our
     beautiful Restaurant Palms or other living rooms,
     we guarantee a <u>good experience with us.</u>
-    </i>
     ''', para2Style)
     
     res.append(para1)
@@ -270,14 +268,5 @@ def _genPricesTable(width, height):
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), ['antiquewhite', 'beige'])
         
     ])
-    
-    # for i in range(1, rowCount):
-    #     if i % 2 == 0 :
-    #         bc = colors.antiquewhite
-    #     else:
-    #         bc = colors.beige
-    #     res.setStyle([
-    #         ('BACKGROUND', (0, i), (-1, i), bc),
-    #     ])
     
     return res
