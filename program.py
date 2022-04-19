@@ -5,6 +5,13 @@ from header import genHeaderTable
 from body import genBodyTable
 from footer import genFooterTable
 
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+
+pdfmetrics.registerFont(
+    TTFont('arabe', 'resources\Lateef-Regular.ttf')
+)
+
 #define canvas to draw the report
 pdf = canvas.Canvas('report.pdf', pagesize = A4)
 pdf.setTitle('Palms Hotel')

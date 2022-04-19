@@ -8,6 +8,7 @@ def genHeaderTable(width, height):
         width * 0.45, # col 2 - right image
         width * 0, # text
         width * 0, # text
+        width * 0, # text
     ]
     
     leftImagePath = 'resources\paradiseHotel.jpg'
@@ -23,7 +24,7 @@ def genHeaderTable(width, height):
     # rightList = [rightImage, rightText]
     
     res = Table([
-        [leftImage, rightImage, rightText, rightText]
+        [leftImage, rightImage, rightText, rightText, 'فندق بالمز']
     ],
     widthList, height)
     
@@ -36,12 +37,17 @@ def genHeaderTable(width, height):
         ('ALIGN', (1, 0), (1, 0), 'CENTER'),
         ('VALIGN', (1, 0), (1, 0), 'MIDDLE'),
         
-        ('FONTSIZE', (2, 0), (3, 0), 20),
+        ('FONTSIZE', (2, 0), (4, 0), 20),
         ('FONTNAME', (2, 0), (3, 0), 'Helvetica-Bold'),
+        ('FONTNAME', (4, 0), (4, 0), 'arabe'),
+        
         ('LEFTPADDING', (2, 0), (2, 0), -widthList[1] + 98), # text
         ('LEFTPADDING', (3, 0), (3, 0), -widthList[1]+ 97) , # text
+        ('LEFTPADDING', (4, 0), (4, 0), -widthList[1]+ 98) , # text
+        
         ('BOTTOMPADDING', (2, 0), (2, 0), 40), # text
         ('BOTTOMPADDING', (3, 0), (3, 0), 41), # text
+        ('BOTTOMPADDING', (4, 0), (4, 0), 10), # text
         
         ('TEXTCOLOR', (2, 0), (2, 0), 'rgba(0, 0, 0, 0.8)'),
         ('TEXTCOLOR', (3, 0), (3, 0), 'red'),
