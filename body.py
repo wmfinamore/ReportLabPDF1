@@ -4,6 +4,8 @@ from reportlab.lib.styles import ParagraphStyle
 
 import csv
 
+from stars import getFiveStars
+
 def genBodyTable(width, height):
     
     widthList = [
@@ -191,6 +193,8 @@ def _genAboutTable(width, height):
         kind='proportional'
     )
     
+    drawing = getFiveStars()
+    
     para1Style = ParagraphStyle('para1', )
     para1Style.fontSize = 14
     para1Style.spaceAfter = 15
@@ -204,10 +208,11 @@ def _genAboutTable(width, height):
     and owned by Dabai SGPS.
     ''', para2Style)
     
+    imgs = [img, drawing]
     paras = [para1, para2]
     
     res = Table([
-        [img, paras, ]
+        [imgs, paras, ]
     ],
     widthList,
     height)
@@ -217,7 +222,8 @@ def _genAboutTable(width, height):
         
         ('LEFTPADDING', (0, 0), (0, 0), 0),
         
-        ('BOTTOMPADDING',(0, 0), (1, 0), 0),
+        ('BOTTOMPADDING',(0, 0), (0, 0), height/3), # first column
+        ('BOTTOMPADDING',(1, 0), (1, 0), 0), # second column
         
         ('ALIGN', (0, 0), (1, 0), 'CENTER'),
         ('VALIGN', (0, 0), (1, 0), 'MIDDLE'),
