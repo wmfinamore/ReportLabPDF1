@@ -5,35 +5,40 @@ from reportlab.platypus import Table
 from reportlab.graphics.shapes import Drawing, Rect, Polygon, Group
 from reportlab.lib import colors
 
+from math import sin, cos, pi
 
-def _getTriangle(xOffset = 0):
+
+def _getStar():
+    angle = 90
+    radius1 = 5
+    radius2 = radius1*sin(18*(pi/180.0))/cos(36*(pi/180.0))
     
     points = []
     
-    points.append(0 + xOffset) # x1
-    points.append(0) # y1
-    
-    points.append(15 + xOffset) #x2
-    points.append(0) # y2
-    
-    points.extend([7.5 + xOffset, 10]) # x3 e y3
-    
-    polygon = Polygon(points,
-                      fillColor = colors.burlywood,
-                      strokeColor = colors.darkgoldenrod,
-                      strokeWidth = 0.5
-                      )
+    for i in range(5):
+        for radius in [radius1, radius2]:
+            theta = angle * (pi / 180.0)
+            points.append(radius*cos(theta)) # x pos
+            points.append(radius*sin(theta)) # y pos
+            
+            angle = angle + 36
+    polygon = Polygon(
+        points,
+        fillColor = colors.burlywood,
+        strokeColor = colors.darkgoldenrod,
+        strokeWidth = 0.5
+    )
     return polygon
 
 def getFiveStars():
     drawing = Drawing(0, 0)
 
-    polygon = _getTriangle()
+    polygon = _getStar()
     
-    for x in range(5):
+    for x in range(-2, 3):
         group = Group()
         group.add(polygon)
-        group.translate(x * 15, x * 15)
+        group.translate(x * 15, 10)
         
         drawing.add(group)
     
