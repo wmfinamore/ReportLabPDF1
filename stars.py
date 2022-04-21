@@ -2,18 +2,43 @@ from turtle import fillcolor
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Table
 
-from reportlab.graphics.shapes import Drawing, Rect
+from reportlab.graphics.shapes import Drawing, Rect, Polygon
 from reportlab.lib import colors
 
+
+def _getTriangle(xOffset = 0):
+    
+    points = []
+    
+    points.append(0 + xOffset) # x1
+    points.append(0) # y1
+    
+    points.append(15 + xOffset) #x2
+    points.append(0) # y2
+    
+    points.extend([7.5 + xOffset, 10]) # x3 e y3
+    
+    polygon = Polygon(points,
+                      fillColor = colors.burlywood,
+                      strokeColor = colors.darkgoldenrod,
+                      strokeWidth = 0.5
+                      )
+    return polygon
 
 def getFiveStars():
     drawing = Drawing(0, 0)
     
-    drawing.add(Rect(0, 0, 100, 50,
-                     fillColor='orange',
-                     strokeColor = colors.blue,
-                     strokeWidth = 3
-                     ))
+    # drawing.add(Rect(0, 0, 100, 50,
+    #                  fillColor='orange',
+    #                  strokeColor = colors.blue,
+    #                  strokeWidth = 3
+    #                  ))
+    
+    polygon = _getTriangle()
+    drawing.add(polygon)
+    
+    polygon = _getTriangle(15)
+    drawing.add(polygon)
     
     return drawing
 
