@@ -27,18 +27,11 @@ def _getTriangle(xOffset = 0):
 
 def getFiveStars():
     drawing = Drawing(0, 0)
+
+    for x in range(5):
     
-    # drawing.add(Rect(0, 0, 100, 50,
-    #                  fillColor='orange',
-    #                  strokeColor = colors.blue,
-    #                  strokeWidth = 3
-    #                  ))
-    
-    polygon = _getTriangle()
-    drawing.add(polygon)
-    
-    polygon = _getTriangle(15)
-    drawing.add(polygon)
+        polygon = _getTriangle( x * 15)
+        drawing.add(polygon)
     
     return drawing
 
