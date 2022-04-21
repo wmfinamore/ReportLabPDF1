@@ -2,7 +2,7 @@ from turtle import fillcolor
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Table
 
-from reportlab.graphics.shapes import Drawing, Rect, Polygon
+from reportlab.graphics.shapes import Drawing, Rect, Polygon, Group
 from reportlab.lib import colors
 
 
@@ -28,10 +28,14 @@ def _getTriangle(xOffset = 0):
 def getFiveStars():
     drawing = Drawing(0, 0)
 
-    for x in range(5):
+    polygon = _getTriangle()
     
-        polygon = _getTriangle( x * 15)
-        drawing.add(polygon)
+    for x in range(5):
+        group = Group()
+        group.add(polygon)
+        group.translate(x * 15, x * 15)
+        
+        drawing.add(group)
     
     return drawing
 
