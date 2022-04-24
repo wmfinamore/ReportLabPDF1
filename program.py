@@ -38,7 +38,7 @@ pdfmetrics.registerFontFamily(
 )
 ##########################################################
 
-def genPalmsHotelPage(pdf, size):
+def genPalmsHotelPage(pdf: canvas.Canvas, size):
     # setting width and height page
     width, height = size
 
@@ -73,6 +73,14 @@ def genPalmsHotelPage(pdf, size):
     # wrap the canvas with the table
     mainTable.wrapOn(pdf, 0, 0)
     mainTable.drawOn(pdf, 0, 0)
+    
+    pageNo = pdf.getPageNumber()
+    x = width * 0.92
+    y = heightList[-1] * 0.25
+    
+    pdf.setFillColor('white')
+    
+    pdf.drawString(x, y, f'Page {pageNo}')
     
     pdf.showPage()
 #END genPalmsHotelPage()
