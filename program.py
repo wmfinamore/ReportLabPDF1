@@ -73,6 +73,8 @@ def genPalmsHotelPage(pdf, size):
     # wrap the canvas with the table
     mainTable.wrapOn(pdf, 0, 0)
     mainTable.drawOn(pdf, 0, 0)
+    
+    pdf.showPage()
 #END genPalmsHotelPage()
 
 size = A4
@@ -81,14 +83,16 @@ size = A4
 pdf = canvas.Canvas('report.pdf', pagesize = size)
 pdf.setTitle('Palms Hotel')
 
-genPalmsHotelPage(pdf, size)
-pdf.showPage() # Page Break 
 
 genPalmsHotelPage(pdf, size)
-pdf.showPage()
+# pdf.showPage() # Page Break 
 
 genPalmsHotelPage(pdf, size)
-pdf.showPage()
+# pdf.showPage()
+
+genPalmsHotelPage(pdf, size)
+# pdf.showPage()
+
 
 # generate pdf file
 pdf.save()
