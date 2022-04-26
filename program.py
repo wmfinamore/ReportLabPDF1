@@ -91,14 +91,21 @@ size = A4
 pdf = canvas.Canvas('report.pdf', pagesize = size)
 pdf.setTitle('Palms Hotel')
 
+
+pdf.bookmarkPage('p1')
+pdf.addOutlineEntry('Page 1', 'p1' )
 pdf.setPageSize(landscape(size))
 genPalmsHotelPage(pdf, landscape(size))
 # pdf.showPage() # Page Break 
 
+pdf.bookmarkPage('p2')
+pdf.addOutlineEntry('Page 2', 'p2', level=1 )
 pdf.setPageSize(size)
 genPalmsHotelPage(pdf, size)
 # pdf.showPage()
 
+pdf.bookmarkPage('p3')
+pdf.addOutlineEntry('Page 3', 'p3', level=1 )
 genPalmsHotelPage(pdf, size)
 # pdf.showPage()
 
