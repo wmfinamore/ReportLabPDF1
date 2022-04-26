@@ -88,7 +88,7 @@ def genPalmsHotelPage(pdf: canvas.Canvas, size):
 size = A4
 
 #define canvas to draw the report
-pdf = canvas.Canvas('report.pdf', pagesize = size)
+pdf = canvas.Canvas('report.pdf', pagesize = size, encrypt='abc')
 pdf.setTitle('Palms Hotel')
 
 
