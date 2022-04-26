@@ -1,5 +1,5 @@
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.platypus import Table
 from header import genHeaderTable
 from body import genBodyTable
@@ -91,10 +91,11 @@ size = A4
 pdf = canvas.Canvas('report.pdf', pagesize = size)
 pdf.setTitle('Palms Hotel')
 
-
-genPalmsHotelPage(pdf, size)
+pdf.setPageSize(landscape(size))
+genPalmsHotelPage(pdf, landscape(size))
 # pdf.showPage() # Page Break 
 
+pdf.setPageSize(size)
 genPalmsHotelPage(pdf, size)
 # pdf.showPage()
 
