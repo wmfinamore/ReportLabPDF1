@@ -8,6 +8,8 @@ from footer import genFooterTable
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 
+from reportlab.lib.pdfencrypt import StandardEncryption
+
 pdfmetrics.registerFont(
     TTFont('arabe', r'resources\Lateef-Regular.ttf')
 )
@@ -86,9 +88,10 @@ def genPalmsHotelPage(pdf: canvas.Canvas, size):
 #END genPalmsHotelPage()
 
 size = A4
+senc = StandardEncryption('abc', 'abc123', canPrint=0)
 
 #define canvas to draw the report
-pdf = canvas.Canvas('report.pdf', pagesize = size, encrypt='abc')
+pdf = canvas.Canvas('report.pdf', pagesize = size, encrypt=senc)
 pdf.setTitle('Palms Hotel')
 
 
