@@ -197,7 +197,7 @@ def _genAboutTable(width, height):
     
     para1Style = ParagraphStyle('para1', )
     para1Style.fontSize = 14
-    para1Style.spaceAfter = 15
+    para1Style.spaceAfter = 8
     para1 = Paragraph('Palms Hotels', para1Style)
     
     para2Style = ParagraphStyle('para2', )
