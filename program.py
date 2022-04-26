@@ -91,7 +91,7 @@ size = A4
 senc = StandardEncryption('abc', 'abc123', canPrint=0)
 
 #define canvas to draw the report
-pdf = canvas.Canvas('report.pdf', pagesize = size, encrypt=senc)
+pdf = canvas.Canvas('report.pdf', pagesize = size)#, encrypt=senc)
 pdf.setTitle('Palms Hotel')
 
 
