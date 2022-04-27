@@ -1,5 +1,5 @@
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib.pagesizes import A4, landscape, A3, LETTER
 from reportlab.platypus import Table
 from header import genHeaderTable
 from body import genBodyTable
@@ -40,7 +40,10 @@ pdfmetrics.registerFontFamily(
 )
 ##########################################################
 
-def genPalmsHotelPage(pdf: canvas.Canvas, size):
+def genPalmsHotelPage(pdf: canvas.Canvas, size, bookmark=False):
+    
+    pdf.setPageSize(size)
+    
     # setting width and height page
     width, height = size
 
@@ -77,41 +80,59 @@ def genPalmsHotelPage(pdf: canvas.Canvas, size):
     mainTable.drawOn(pdf, 0, 0)
     
     pageNo = pdf.getPageNumber()
+    pageNoText = f'Page {pageNo}'
     x = width * 0.92
     y = heightList[-1] * 0.25
     
     pdf.setFillColor('white')
     
-    pdf.drawString(x, y, f'Page {pageNo}')
+    pdf.drawString(x, y, pageNoText)
+    
+    if bookmark:
+        id = f'p{pageNo}'
+        pdf.bookmarkPage(id)
+        pdf.addOutlineEntry(pageNoText, id)
     
     pdf.showPage()
 #END genPalmsHotelPage()
 
-size = A4
-senc = StandardEncryption('abc', 'abc123', canPrint=0)
-
-#define canvas to draw the report
-pdf = canvas.Canvas('report.pdf', pagesize = size)#, encrypt=senc)
-pdf.setTitle('Palms Hotel')
-
-
-pdf.bookmarkPage('p1')
-pdf.addOutlineEntry('Page 1', 'p1' )
-pdf.setPageSize(landscape(size))
-genPalmsHotelPage(pdf, landscape(size))
-# pdf.showPage() # Page Break 
-
-pdf.bookmarkPage('p2')
-pdf.addOutlineEntry('Page 2', 'p2', level=1 )
-pdf.setPageSize(size)
-genPalmsHotelPage(pdf, size)
-# pdf.showPage()
-
-pdf.bookmarkPage('p3')
-pdf.addOutlineEntry('Page 3', 'p3', level=1 )
-genPalmsHotelPage(pdf, size)
-# pdf.showPage()
-
 
 # generate pdf file
-pdf.save()
+
+
+def CreatePDF(
+    filename,
+    orientation='portrait', size=A4,
+    userPass=None, ownerPass=None
+):
+    enc = None
+    if ownerPass and userPass:
+        enc = StandardEncryption(userPass, ownerPass, canPrint=0)
+    elif userPass:
+        enc = userPass
+    
+    
+    
+    pdf = canvas.Canvas(filename, encrypt=enc)
+    pdf.setTitle('Palms Hotel')
+    
+    if orientation == 'portrait':
+        genPalmsHotelPage(pdf, size)
+    elif orientation == 'landscape':
+        genPalmsHotelPage(pdf, landscape(size))
+    elif orientation == 'both':
+        genPalmsHotelPage(pdf, size, bookmark=True)
+        genPalmsHotelPage(pdf, landscape(size), bookmark=True)
+    else:
+        genPalmsHotelPage(pdf, size)
+    
+    pdf.save()
+#END def CreatePDF
+
+if __name__ == '__main__':
+    CreatePDF(
+        'test.pdf',
+        orientation='both',
+        size=A3,
+        userPass='teste'
+    )
