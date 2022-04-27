@@ -1,1 +1,33 @@
-<h1>Olá Mundo!</h1>
+<form action="generatePDF" method="post">
+    {% csrf_token %}
+    <div>
+        <label for="filename">File Name:</label>
+        <input id="filename" type="text" name="fname">
+    </div>
+    <div>
+        <label>Orientation:</label>
+        <input id="op1" type="radio" value="portrait" name="orientation" checked>
+        <label for="op1">Portrait</label>
+        <input id="op2" type="radio" value="landscape" name="orientation">
+        <label for="op2">Landscape</label>
+        <input id="op3" type="radio" value="both" name="orientation">
+        <label for="op3">Both</label>
+    </div>
+    <div>
+        <label>Page Size:</label>
+        <input id="op1" type="radio" value="A3" name="pagesize">
+        <label for="op1">A3</label>
+        <input id="op2" type="radio" value="A4" name="pagesize" checked>
+        <label for="op2">A4</label>
+        <input id="op3" type="radio" value="LETTER" name="pagesize">
+        <label for="op3">LETTER</label>
+    </div>
+    <div>
+        <label for="userpass">User Password:</label>
+        <input id="userpass" type="password" name="userpass">
+        <br/>
+        <label for="ownerpass">Owner Password:</label>
+        <input id="ownerpass" type="password" name="ownerpass">
+    </div>
+    <input type="submit" value="Generate PDF">
+</form>
