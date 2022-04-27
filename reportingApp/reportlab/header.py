@@ -1,5 +1,6 @@
 from turtle import left
 from reportlab.platypus import Table, Image
+from .utils import BASE_PATH
 
 
 def genHeaderTable(width, height):
@@ -11,11 +12,11 @@ def genHeaderTable(width, height):
         width * 0, # text Arabic
     ]
     
-    leftImagePath = 'resources\paradiseHotel.jpg'
+    leftImagePath = BASE_PATH / 'resources\paradiseHotel.jpg'
     leftImageWidth = widthList[0]
     leftImage = Image(leftImagePath, leftImageWidth, height)
     
-    rightImagePath = 'resources\logoParadise.png'
+    rightImagePath = BASE_PATH / 'resources\logoParadise.png'
     rightImageWidth = widthList[1]
     rightImage = Image(rightImagePath, rightImageWidth, height,
                        kind='proportional')

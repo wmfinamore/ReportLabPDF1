@@ -1,34 +1,38 @@
+from os import set_inheritable
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4, landscape, A3, LETTER
 from reportlab.platypus import Table
-from header import genHeaderTable
-from body import genBodyTable
-from footer import genFooterTable
+from .header import genHeaderTable
+from .body import genBodyTable
+from .footer import genFooterTable
+from .utils import BASE_PATH
 
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 
 from reportlab.lib.pdfencrypt import StandardEncryption
 
+import io
+
 pdfmetrics.registerFont(
-    TTFont('arabe', r'resources\Lateef-Regular.ttf')
+    TTFont('arabe', BASE_PATH / r'resources\Lateef-Regular.ttf')
 )
 
 #register jetBrains Mono font family ####################
 pdfmetrics.registerFont(
-    TTFont('jetBrainsMonoExtraBold', r'resources\newFont\JetBrainsMono-ExtraBold.ttf')
+    TTFont('jetBrainsMonoExtraBold', BASE_PATH / r'resources\newFont\JetBrainsMono-ExtraBold.ttf')
 )
 
 pdfmetrics.registerFont(
-    TTFont('jetBrainsMonoExtraBoldItalic', r'resources\newFont\JetBrainsMono-ExtraBoldItalic.ttf')
+    TTFont('jetBrainsMonoExtraBoldItalic', BASE_PATH /  r'resources\newFont\JetBrainsMono-ExtraBoldItalic.ttf')
 )
 
 pdfmetrics.registerFont(
-    TTFont('jetBrainsMonoItalic', r'resources\newFont\JetBrainsMono-Italic.ttf')
+    TTFont('jetBrainsMonoItalic', BASE_PATH /  r'resources\newFont\JetBrainsMono-Italic.ttf')
 )
 
 pdfmetrics.registerFont(
-    TTFont('jetBrainsMonoRegular', r'resources\newFont\JetBrainsMono-Regular.ttf')
+    TTFont('jetBrainsMonoRegular', BASE_PATH /  r'resources\newFont\JetBrainsMono-Regular.ttf')
 )
 
 pdfmetrics.registerFontFamily(
@@ -101,19 +105,27 @@ def genPalmsHotelPage(pdf: canvas.Canvas, size, bookmark=False):
 
 
 def CreatePDF(
-    filename,
     orientation='portrait', size=A4,
     userPass=None, ownerPass=None
 ):
+    
+    if type(size) == str:
+        if size == 'A3':
+            size = A3
+        elif size == 'LETTER':
+            size = LETTER
+        else:
+            size = A4
+    
     enc = None
     if ownerPass and userPass:
         enc = StandardEncryption(userPass, ownerPass, canPrint=0)
     elif userPass:
         enc = userPass
     
+    buffer = io.BytesIO()
     
-    
-    pdf = canvas.Canvas(filename, encrypt=enc)
+    pdf = canvas.Canvas(buffer, encrypt=enc)
     pdf.setTitle('Palms Hotel')
     
     if orientation == 'portrait':
@@ -127,12 +139,16 @@ def CreatePDF(
         genPalmsHotelPage(pdf, size)
     
     pdf.save()
+    
+    buffer.seek(0)
+    
+    return buffer
 #END def CreatePDF
 
-if __name__ == '__main__':
-    CreatePDF(
-        'test.pdf',
-        orientation='both',
-        size=A3,
-        userPass='teste'
-    )
+# if __name__ == '__main__':
+#     CreatePDF(
+#         'test.pdf',
+#         orientation='both',
+#         size=A3,
+#         userPass='teste'
+#     )

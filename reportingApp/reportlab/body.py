@@ -1,10 +1,11 @@
 from reportlab.lib import colors
 from reportlab.platypus import Table, Image, Paragraph
 from reportlab.lib.styles import ParagraphStyle
+from .utils import BASE_PATH
 
 import csv
 
-from stars import getFiveStars
+from .stars import getFiveStars
 
 def genBodyTable(width, height):
     
@@ -78,7 +79,7 @@ def _genContactsTable(width, height):
     dataList = []
     
     # open file and create a lista with contact values
-    with open(r'resources\tabledata.txt', 'r') as file:
+    with open(BASE_PATH / r'resources\tabledata.txt', 'r') as file:
         for line in file:
             if line != '\n':
                 dataList.append(line.replace('/n', ''))
@@ -187,7 +188,7 @@ def _genAboutTable(width, height):
     ]
     
     img = Image(
-        'resources\logoParadise.png',
+        BASE_PATH / 'resources\logoParadise.png',
         widthList[0],
         height,
         kind='proportional'
@@ -235,7 +236,7 @@ def _genAboutTable(width, height):
 def _genPricesTable(width, height):
     matrix = []
     
-    with open(r'resources\pricesTable.csv', 'r') as file:
+    with open(BASE_PATH / r'resources\pricesTable.csv', 'r') as file:
         matrix = list(csv.reader(file))
         
     if len(matrix) < 2 or len(matrix[0]) !=6 :
